@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Grievance (S3 + EC2 Demo)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Grievance Management • S3 + EC2 (No Backend)</h1>
+  <button id="btnSettings">Settings</button>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Submit Grievance</h2>
+    <form id="formGrievance">
+      <label>Name* <input name="name" required></label>
+      <label>Email* <input type="email" name="email" required></label>
+      <label>Category
+        <select name="category">
+          <option>General</option>
+          <option>Technical</option>
+          <option>Billing</option>
+          <option>Service</option>
+        </select>
+      </label>
+      <label>Description* <textarea name="description" rows="4" required></textarea></label>
+      <label>Attachments (up to 3) <input type="file" name="files" multiple></label>
+      <button type="submit">Upload to S3</button>
+    </form>
+    <div id="submitResult" class="muted"></div>
+  </section>
+
+  <section class="card">
+    <h2>Latest Submissions (from S3)</h2>
+    <button id="btnRefresh">Refresh</button>
+    <div id="list"></div>
+  </section>
+</main>
+
+<!-- Settings Modal -->
+<dialog id="dlgSettings">
+  <form method="dialog" id="formSettings">
+    <h3>Configure S3 (demo-only)</h3>
+    <p class="muted">Tip: create a restricted IAM user limited to a single bucket/prefix.</p>
+    <label>AWS Region* <input id="awsRegion" required placeholder="ap-south-1"></label>
+    <label>S3 Bucket* <input id="s3Bucket" required placeholder="my-grievances-bucket"></label>
+    <label>S3 Prefix <input id="s3Prefix" placeholder="demo/"></label>
+    <label>Access Key ID* <input id="awsKey" required></label>
+    <label>Secret Access Key* <input id="awsSecret" type="password" required></label>
+    <menu>
+      <button value="cancel">Cancel</button>
+      <button id="btnSaveSettings" value="default">Save</button>
+    </menu>
+  </form>
+</dialog>
+
+<footer>
+  <p class="muted">Demo purpose only. Credentials are stored in your browser's localStorage.</p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
